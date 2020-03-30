@@ -2,5 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/useful/youtube_mp3/youtube-mp3-downloader" vcs="Git" />
   </component>
 </project>
