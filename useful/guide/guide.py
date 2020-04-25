@@ -1,11 +1,14 @@
 import wikipedia
+import folders
 
 def write_file(file,data):
-	f = open(file, "w")
-	f.write(data)
-	f.close()
+	# f = open(file, "w")
+	# f.write(data)
+	# f.close()
+	with open(file, 'w') as f:
+		f.write(data)
 
-def mywiki(title):
+def getwiki(path_wiki,title):
 	wikipedia.set_lang("hu")
 	mycontent = wikipedia.page(title).content
 	mycontent = mycontent.split('\n')
@@ -13,19 +16,26 @@ def mywiki(title):
 	mycontent = '\n'.join(mycontent)
 
 	filename = title.replace("-","_").replace(":","_").replace("!","_").replace("\\","_")
-	write_file(filename+'.txt',mycontent)
-# wikipedia.summary("Facebook", sentences=1)
+	write_file(path_wiki+'/'+filename+'.txt',mycontent)
 
-titles = ["Róma","Vatikán","római pápa","Szent Péter-bazilika","Colosseum","Forum Romanum",
-			"Trevi-kút","Pantheon (Róma)","Piazza Navona","Angyalvár","Capitolinus",
-			"Sixtus-kápolna","A Sixtus-kápolna mennyezetfreskója","Vatikáni Múzeum"]
 
-def main(titles):
+def main(path_wiki,path_out):
+	folders.create_folder(path_wiki)
+
+	with open('list.txt','r') as f:
+		data = f.read()
+
+	titles = data.split('\n')
+	print(titles)
 	for title in titles:
-		mywiki(title)
+		getwiki(path_wiki,title)
+
+	folders.folder_in_out(path_wiki,path_out)
 
 if __name__ == '__main__':
-	main(titles)
+	path_wiki = 'output/wiki'
+	path_out = 'output/mp3/'
+	main(path_wiki,path_out)
 
 
 	# with open(file,'w') as f:
