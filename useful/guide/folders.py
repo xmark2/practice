@@ -5,6 +5,7 @@ from pathlib import Path
 
 import os
 import glob
+import plazy
 
 def create_folder(path):
 	# path = './dail/first/second/third'
@@ -22,7 +23,13 @@ def readfile(file):
 def list_files(path, file_type):
 	
 
-	files = [f for f in glob.glob(path + "**/*."+file_type, recursive=True)]
+	files = [f for f in glob.glob(path + "*."+file_type, recursive=True)]
+	return files
+
+
+def list_files2(path, file_type):
+	type_filter = lambda x : True if x.endswith('.'+file_type) else False
+	files = plazy.list_files(root=path, filter_func=type_filter, is_include_root=True)
 	return files
 	# for f in files:
     	# print(f)
